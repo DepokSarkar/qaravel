@@ -7,6 +7,14 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
 
+const DotEnv = require('dotenv')
+
+if(parsedEnv = DotEnv.config().parsed) {
+  for (let key in parsedEnv) {
+    process.env[key] = parsedEnv[key]
+  }
+}
+
 module.exports = function (ctx) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
