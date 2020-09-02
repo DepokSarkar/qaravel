@@ -2,9 +2,20 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/Main.vue'),
     children: [
-      { path: '', component: () => import('pages/Index.vue') }
+      { path: '/login/user', name: 'Login.user', component: () => import('pages/Login.vue') },
+      { path: '/login/staff', name: 'Login.staff', component: () => import('pages/Login.vue') },
+      { path: '/login/admin', name: 'Login.admin', component: () => import('pages/Login.vue') }
+    ]
+  },
+  {
+    path: '/dashboard',
+    component: () => import('layouts/Dashboard.vue'),
+    children: [
+      { path: '', name: 'Dashboard', meta: { role: 'all' }, component: () => import('pages/Index') },
+      { path: '/pages/common', name: 'Page1', meta: { role: 'admin' }, component: () => import('pages/Index') },
+      { path: '/pages/contact', name: 'Page2', meta: { role: 'staff' }, component: () => import('pages/Index') }
     ]
   },
 

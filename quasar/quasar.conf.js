@@ -20,6 +20,8 @@ module.exports = function (/* ctx */) {
     // https://quasar.dev/quasar-cli/boot-files
     boot: [
 
+      'log',
+      'core',
       'i18n',
       'axios'
     ],
@@ -33,10 +35,10 @@ module.exports = function (/* ctx */) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v5',
-      // 'fontawesome-v5',
+      'fontawesome-v5',
       // 'eva-icons',
-      // 'themify',
-      // 'line-awesome',
+      'themify',
+      'line-awesome',
       // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
 
       'roboto-font', // optional, you are not bound to it
@@ -78,6 +80,15 @@ module.exports = function (/* ctx */) {
     devServer: {
       https: false,
       port: 8080,
+      proxy: {
+          '/api': {
+            target: process.env.API_URL,
+            changeOrigin: true,
+            pathRewrite: {
+              '^/api': ''
+            }
+          }
+      },
       open: true // opens browser window automatically
     },
 
@@ -85,7 +96,11 @@ module.exports = function (/* ctx */) {
     framework: {
       iconSet: 'material-icons', // Quasar icon set
       lang: 'en-us', // Quasar language pack
-      config: {},
+      config: {
+          screen: {
+              bodyClasses: true // <<< add this
+          }
+      },
 
       // Possible values for "importStrategy":
       // * 'auto' - (DEFAULT) Auto-import needed Quasar components & directives
@@ -98,9 +113,14 @@ module.exports = function (/* ctx */) {
       //
       // components: [],
       // directives: [],
-
       // Quasar plugins
-      plugins: []
+      plugins: [
+          'Dialog',
+          'Notify',
+          'Loading',
+          'LocalStorage',
+          'Meta'
+      ]
     },
 
     // animations: 'all', // --- includes all animations
