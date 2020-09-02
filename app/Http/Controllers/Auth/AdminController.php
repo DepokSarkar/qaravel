@@ -31,7 +31,7 @@ class AdminController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth('admin')->user());
     }
 
     /**
@@ -41,7 +41,7 @@ class AdminController extends Controller
      */
     public function logout()
     {
-        auth()->logout();
+        auth('admin')->logout();
 
         return response()->json(['message' => 'Successfully logged out']);
     }
@@ -53,7 +53,7 @@ class AdminController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->refresh());
+        return $this->respondWithToken(auth('admin')->refresh());
     }
 
     /**
@@ -66,9 +66,12 @@ class AdminController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'token' => array(
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'expires_in' => auth('admin')->factory()->getTTL() * 60
+            ),
+            'user' => auth('admin')->user()
         ]);
     }
 }

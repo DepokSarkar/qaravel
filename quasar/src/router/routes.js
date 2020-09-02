@@ -1,12 +1,13 @@
 
 const routes = [
+  { path: '/', redirect: '/dashboard' },
   {
-    path: '/',
+    path: '/login',
     component: () => import('layouts/Main.vue'),
     children: [
-      { path: '/login/user', name: 'Login.user', component: () => import('pages/Login.vue') },
-      { path: '/login/staff', name: 'Login.staff', component: () => import('pages/Login.vue') },
-      { path: '/login/admin', name: 'Login.admin', component: () => import('pages/Login.vue') }
+      { path: 'user', name: 'Login.user', component: () => import('pages/Login.vue') },
+      { path: 'staff', name: 'Login.staff', component: () => import('pages/Login.vue') },
+      { path: 'admin', name: 'Login.admin', component: () => import('pages/Login.vue') }
     ]
   },
   {

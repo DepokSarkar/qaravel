@@ -40,14 +40,3 @@ Route::group(['prefix' => 'admin'], function ($router) {
         Route::post('me', 'Auth\AdminController@me');
     });
 });
-
-Route::get('/current', function (Request $request) {
-    if (Auth::guard('admin')->check()) {
-        $user = auth('admin')->user();
-    } else if (Auth::guard('user')->check()) {
-        $user = auth('user')->user();
-    } else if (Auth::guard('staff')->check()) {
-        $user = auth('staff')->user();
-    }
-    return response()->json($user, 200);
-});

@@ -66,9 +66,12 @@ class UserController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
-            'token_type' => 'Bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'token' => array(
+                'access_token' => $token,
+                'token_type' => 'Bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60
+            ),
+            'user' => auth()->user()
         ]);
     }
 }

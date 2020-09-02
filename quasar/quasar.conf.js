@@ -7,7 +7,7 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
 
-module.exports = function (/* ctx */) {
+module.exports = function (ctx) {
   return {
     // https://quasar.dev/quasar-cli/supporting-ts
     supportTS: false,
@@ -49,11 +49,11 @@ module.exports = function (/* ctx */) {
     build: {
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
-      env: {
-        API_URL: ctx.dev
-          ? 'http://127.0.0.1:8000/api/'
-          : 'https://w3m.coderstm.com/api/'
-      },
+      // env: {
+      //   API_URL: ctx.dev
+      //     ? 'http://127.0.0.1:8000/api/'
+      //     : 'https://w3m.coderstm.com/api/'
+      // },
 
       // transpile: false,
 
@@ -88,7 +88,7 @@ module.exports = function (/* ctx */) {
       port: 8080,
       proxy: {
           '/api': {
-            target: process.env.API_URL,
+            target: 'http://127.0.0.1:8000/api/',
             changeOrigin: true,
             pathRewrite: {
               '^/api': ''
